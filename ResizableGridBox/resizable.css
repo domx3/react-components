@@ -1,0 +1,60 @@
+
+.resizableComponents-container1{
+  width: 100%;
+  height: 100%;
+  display: flex; 
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 4px;
+}
+
+.resizableComponents-container{
+  width: 100%;
+  height: 100%;
+  display: grid; 
+  gap: 8px;
+  grid-template-columns: repeat(3, 1fr);
+}
+
+.resizableBox {
+  position: relative;
+
+  border: 2px blue dashed;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  user-select: none;
+  min-height: 200px;
+  min-width: 200px;
+}
+
+
+
+.resizeBox-east:hover {
+  cursor: e-resize;
+}
+
+.resizeBox-east{
+  position: absolute;
+  top: 0px;
+  right: 0px;
+  background-color: rgb(183, 183, 183);
+  width: 10px;
+  height: 100%;
+}
+
+.resizeBox-south{
+  cursor: s-resize;
+}
+
+.resizeBox-south{
+  position: absolute;
+  bottom: 0px;
+  left: 0px;
+  background-color: rgb(140, 140, 140);
+  width: 100%;
+  height: 10px;
+}
