@@ -10,13 +10,11 @@ export default function ResizableBox(props) {
 
   const {editResize, setResizeOffset, isResizing, setIsResizing, setResizedBox} = useContext(ResizeContext)
   const [thisResizing, setThisResizing] = useState(false);
-  //const [resizeOffset, setResizeOffset] = useState(0);
   const resizableRef = useRef(null);
 
   const boxStyle = { 
     borderColor: editResize && thisResizing ? 'red' : 'blue',
     borderWidth: editResize ? '2px' : '0px'
-    //cursor: isResizing ? 'ew-resize' : 'default'
   }
 
   useEffect(() => {
@@ -30,7 +28,7 @@ export default function ResizableBox(props) {
   }, [])
 
   const combinedStyle = {...boxStyle, ...props.style}
-
+  const combinedClass = props.className ? props.className + " resizableBox" : "resizableBox"
 
   const handleMouseDown = (event) => {
     
@@ -47,24 +45,12 @@ export default function ResizableBox(props) {
 
   };
   
-  /* 
-  const handleMouseMove = (event) => {
-    if (!thisResizing) return;
-
-    if(event.clientX / resizeOffset > 1.1) {
-      console.log("+10% move -> resize")
-      console.log("grid column: " + resizableRef.current.style.gridColumn)
-      resizableRef.current.style.gridColumn = `1 / span 2`;
-    } 
-  };
-  */
 
   return (
     <div
-      className='resizableBox'
+      className={combinedClass}
       ref={resizableRef}
       
-      //onMouseMove={handleMouseMove}
       style={combinedStyle}
       >
       {editResize &&

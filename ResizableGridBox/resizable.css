@@ -20,7 +20,6 @@
 
 .resizableBox {
   position: relative;
-
   border: 2px blue dashed;
   display: flex;
   flex-direction: column;
@@ -29,15 +28,13 @@
   user-select: none;
   min-height: 200px;
   min-width: 200px;
+  grid-column: span 1;
 }
 
 
-
-.resizeBox-east:hover {
-  cursor: e-resize;
-}
 
 .resizeBox-east{
+  cursor: e-resize;
   position: absolute;
   top: 0px;
   right: 0px;
@@ -48,9 +45,6 @@
 
 .resizeBox-south{
   cursor: s-resize;
-}
-
-.resizeBox-south{
   position: absolute;
   bottom: 0px;
   left: 0px;
@@ -58,3 +52,4 @@
   width: 100%;
   height: 10px;
 }
+

@@ -3,6 +3,12 @@ import "./resizable.css"
 
 export const ResizeContext = createContext()
 
+const getSpanValue = (spanString) => {
+  console.log(spanString)
+  if (!spanString) return 1
+  return parseInt(spanString.split(' ')[1], 10);
+};
+
 export default function ResizableContainer({ children, editResize }) {
 
   const [isResizing, setIsResizing] = useState(false)
@@ -11,6 +17,8 @@ export default function ResizableContainer({ children, editResize }) {
   const resizedBoxRef = useRef(resizedBox)
   const [resizeOffset, setResizeOffset] = useState(0)
   const resizeOffsetRef = useRef(resizeOffset)
+  const maxColSpan = 3
+  const maxRowSpan = 3
 
   useEffect(() => {
     resizedBoxRef.current = resizedBox;
@@ -32,25 +40,41 @@ export default function ResizableContainer({ children, editResize }) {
     const handlePointerMove = (event) => {
       
       if(isResizingRef.current === 'east') {
+        
         const xChange = event.clientX - resizeOffsetRef.current
+
         if(xChange > 100) {
-          resizedBoxRef.current.style.gridColumn = `1 / span 2`;
+          const colSpan = getSpanValue(resizedBoxRef.current.style.gridColumn);
+          if (colSpan < maxColSpan) {
+            resizedBoxRef.current.style.gridColumn = `span ${colSpan + 1}`;
+          }
           setResizeOffset(event.clientX)
         }
         else if(xChange < -100) {
-          resizedBoxRef.current.style.gridColumn = `1 / span 1`
+          const colSpan = getSpanValue(resizedBoxRef.current.style.gridColumn);
+          if (colSpan > 1) {
+            resizedBoxRef.current.style.gridColumn = `span ${colSpan - 1}`;
+          }
           setResizeOffset(event.clientX)
         }
       }
 
       if(isResizingRef.current === 'south') {
+        
         const yChange = event.clientY - resizeOffsetRef.current
+        
         if(yChange > 50) {
-          resizedBoxRef.current.style.gridRow = `span 2`;
+          const rowSpan = getSpanValue(resizedBoxRef.current.style.gridRow);
+          if (rowSpan < maxRowSpan) {
+            resizedBoxRef.current.style.gridRow = `span ${rowSpan + 1}`;
+          }
           setResizeOffset(event.clientX)
         }
-        else if(yChange < -50) {
-          resizedBoxRef.current.style.gridRow = `span 1`
+        else if(yChange < 50) {
+          const rowSpan = getSpanValue(resizedBoxRef.current.style.gridRow);
+          if (rowSpan > 1) {
+            resizedBoxRef.current.style.gridRow = `span ${rowSpan - 1}`;
+          }
           setResizeOffset(event.clientY)
         }
       }
